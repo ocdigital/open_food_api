@@ -1,17 +1,11 @@
-import express, { Application } from 'express';
-import { CronService } from './services/CronService';
+import express from 'express';
+import productRoutes from './routes/productRoutes';
+import { getApiStatus } from './controllers/statusController';
 
-const app: Application = express();
-
-new CronService();
-
+const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'API is running',
-    status: 'OK',
-  });
-});
+app.get('/', getApiStatus);
+app.use('/products', productRoutes);
 
 export default app;
