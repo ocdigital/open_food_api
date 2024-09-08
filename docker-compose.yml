@@ -8,10 +8,12 @@ services:
       - "3000:3000"
     depends_on:
       - mongo
+      - elasticsearch
     volumes:
       - .:/usr/src/app
     environment:
       MONGO_URL: mongodb://mongo:27017/foodData
+      ELASTICSEARCH_URL: http://elasticsearch:9200
     networks:
       - app-network
 
@@ -22,6 +24,18 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - app-network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.1
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
     networks:
       - app-network
 

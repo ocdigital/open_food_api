@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 export interface Product {
-    code: number;
+    code: string;
     status: string;
     imported_t: string;
     url: string;
@@ -27,7 +27,7 @@ export interface Product {
 }
 
 const productSchema = new Schema<Product>({
-    code: { type: Number },
+    code: { type: String },
     status: { type: String },
     imported_t: { type: String },
     url: { type: String },
