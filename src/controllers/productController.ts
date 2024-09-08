@@ -3,6 +3,11 @@ import { ProductService } from '../services/productService';
 
 const productService = new ProductService();
 
+export const createProduct = async (req: Request, res: Response) => {
+    const product = await productService.createProduct(req.body);
+    res.json(product);
+}
+
 export const getProducts = async (req: Request, res: Response) => {
     const { page = 1, pageSize = 10 } = req.query;
     const products = await productService.getAllProducts(Number(page), Number(pageSize));

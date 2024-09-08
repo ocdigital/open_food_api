@@ -4,6 +4,11 @@ import { Product } from "../models/product";
 export class ProductService {
     private productRepository = new ProductRepository();
 
+    async createProduct(product: Product): Promise<Product> {
+        console.log('chegou em createProduct',product);
+        return this.productRepository.create(product);
+    }
+
     async getAllProducts(page: number, pageSize: number): Promise<Product[]> {
         return this.productRepository.getAll(page, pageSize);
     }
