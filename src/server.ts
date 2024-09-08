@@ -1,4 +1,3 @@
-import { connect } from 'http2';
 import app from './app';
 import { checkDatabaseConnection, connectdatabase } from './config/database';
 

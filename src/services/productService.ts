@@ -35,8 +35,6 @@ export class ProductService {
     }
 
     async searchProducts(query: string, page: number, pageSize:number): Promise<Product[]> {
-        console.log('searching products');
-        console.log('query:', query);
         const response = await esClient.search({
             index: 'products',
             from: (page - 1) * pageSize,

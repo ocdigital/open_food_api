@@ -14,6 +14,8 @@
   "description": "",
   "dependencies": {
     "@elastic/elasticsearch": "^8.15.0",
+    "@sentry/node": "^8.28.0",
+    "@sentry/profiling-node": "^8.28.0",
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
