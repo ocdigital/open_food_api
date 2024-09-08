@@ -5,9 +5,7 @@ export const connectdatabase = async () => {
     try {
         const mongoURL = process.env.MONGO_URL || 'mongodb://mongo:27017/foodData';
         await mongoose.connect(mongoURL);
-        console.log('Database connected successfully');
-    } catch (error) {
-        console.log('Error connecting to database', error);
+    } catch (error) {        
         process.exit(1);
     }
 }
@@ -23,7 +21,6 @@ export const checkElasticsearchConnection = async () => {
         const health = await client.cluster.health();
         return health.status === 'green' ? 'Connected' : 'Disconnected';
     } catch (error) {
-        console.log('Error connecting to Elasticsearch', error);
         return 'Disconnected';
     }
 }

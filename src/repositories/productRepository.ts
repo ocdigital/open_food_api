@@ -5,10 +5,8 @@ export class ProductRepository {
     async create(product: Product): Promise<Product> {
         try {
             const createdProduct = await ProductModel.create(product);
-            console.log('Produto criado com sucesso:', createdProduct);
             return createdProduct;
         } catch (error) {
-            console.error('Erro ao criar produto:', error);
             throw error;
         }
     }

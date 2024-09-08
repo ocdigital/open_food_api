@@ -4,12 +4,18 @@ import * as path from "path";
 import { createGunzip } from "zlib";
 import * as readline from "readline";
 import { ProductService } from "../services/productService";
+import * as Sentry from "@sentry/node";
 
 const productService = new ProductService();
 const MAX_PRODUCTS = 100;
 const INDEX_URL = "https://challenges.coode.sh/food/data/json/index.txt";
 const FILE_URL = "https://challenges.coode.sh/food/data/json/";
 const TEMP_DIR = path.join(__dirname, "../../temp");
+const SENTRY_DSN = "https://d1a847e9dd10c1ee174ec641e0f78105@o4504663060578304.ingest.us.sentry.io/4507919120465920";
+
+Sentry.init({
+  dsn: SENTRY_DSN  
+});
 
 const downloadFile = async (url: string, dest: string): Promise<void> => {
   const response = await axios.get<Buffer>(url, {
@@ -77,7 +83,7 @@ const saveProductsToDatabase = async (
       count++;
       await productService.createProduct(filteredProduct);
     } catch (err) {
-      console.error("Erro ao salvar produto:", err);
+      Sentry.captureException(err);
     }
   }
 
@@ -102,19 +108,16 @@ const importData = async () => {
       const unzippedFilePath = filePath.replace(".gz", "");
 
       await downloadFile(fileUrl, filePath);
-      console.log(`Arquivo salvo em: ${filePath}`);
-
       await decompressFile(filePath, unzippedFilePath);
-      console.log(`Arquivo descompactado em: ${unzippedFilePath}`);
-
       await saveProductsToDatabase(unzippedFilePath, MAX_PRODUCTS);
-      console.log("Primeiros 100 registros salvos no banco de dados");
+      Sentry.captureMessage("Importação de dados realizada com sucesso");
 
       fs.unlinkSync(filePath);
       fs.unlinkSync(unzippedFilePath);
     }
   } catch (error) {
     console.error("Erro durante a importação de dados:", error);
+    Sentry.captureException(error);
   }
 };
 
