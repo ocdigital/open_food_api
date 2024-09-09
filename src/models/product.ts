@@ -6,8 +6,8 @@ export interface Product {
     imported_t: string;
     url: string;
     creator: string;
-    created_t: number;
-    last_modified_t: number;
+    created_t: string;
+    last_modified_t: string;
     product_name: string;
     quantity: string;
     brands: string;
@@ -32,8 +32,8 @@ const productSchema = new Schema<Product>({
     imported_t: { type: String },
     url: { type: String },
     creator: { type: String },
-    created_t: { type: Number },
-    last_modified_t: { type: Number },
+    created_t: { type: String },
+    last_modified_t: { type: String },
     product_name: { type: String },
     quantity: { type: String },
     brands: { type: String },

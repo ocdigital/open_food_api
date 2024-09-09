@@ -2,15 +2,18 @@ import { ProductRepository } from "../repositories/productRepository";
 import { Product } from "../models/product";
 import { Client } from "@elastic/elasticsearch";
 
-const esClient = new Client({ node: process.env.ELASTICSEARCH_URL });
-
 export class ProductService {
     private productRepository = new ProductRepository();
+    private esClient: Client;
+
+    constructor(){
+        this.esClient = new Client({ node: process.env.ELASTICSEARCH_URL });        
+    }
 
     async createProduct(product: Product): Promise<Product> {
         const createProduct = await this.productRepository.create(product);
 
-        await esClient.index({
+        await this.esClient.index({
             index: 'products',
             body: product
         });
@@ -35,7 +38,7 @@ export class ProductService {
     }
 
     async searchProducts(query: string, page: number, pageSize:number): Promise<Product[]> {
-        const response = await esClient.search({
+        const response = await this.esClient.search({
             index: 'products',
             from: (page - 1) * pageSize,
             body: {
