@@ -1,0 +1,583 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "API Documentation",
+        "contact": {
+            "name": "API Documentation",
+            "email": "eduardoferreira85@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/api/": {
+            "get": {
+                "summary": "Informações sobre a API",
+                "description": "Essa rota mostra informações sobre a API.",
+                "tags": [
+                    "API"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Informações sobre a API",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "api": {
+                                            "type": "string",
+                                            "example": "Details API"
+                                        },
+                                        "dbStatus": {
+                                            "type": "string",
+                                            "example": "Connected"
+                                        },
+                                        "lastCronExecution": {
+                                            "type": "string",
+                                            "example": "Never executed"
+                                        },
+                                        "uptime": {
+                                            "type": "string",
+                                            "example": "0 hours, 7 minutes, 18 seconds"
+                                        },
+                                        "memoryUsage": {
+                                            "type": "string",
+                                            "example": "303 MB"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "summary": "Lista de Produtos",
+                "description": "Recupera uma lista de produtos com paginação.",
+                "tags": [
+                    "Products"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Número da página para paginação.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "Número de itens por página.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de produtos.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "code": {
+                                                "type": "integer"
+                                            },
+                                            "status": {
+                                                "type": "string"
+                                            },
+                                            "imported_t": {
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "url": {
+                                                "type": "string",
+                                                "format": "uri"
+                                            },
+                                            "creator": {
+                                                "type": "string"
+                                            },
+                                            "created_t": {
+                                                "type": "integer"
+                                            },
+                                            "last_modified_t": {
+                                                "type": "integer"
+                                            },
+                                            "product_name": {
+                                                "type": "string"
+                                            },
+                                            "quantity": {
+                                                "type": "string"
+                                            },
+                                            "brands": {
+                                                "type": "string"
+                                            },
+                                            "categories": {
+                                                "type": "string"
+                                            },
+                                            "labels": {
+                                                "type": "string"
+                                            },
+                                            "cities": {
+                                                "type": "string"
+                                            },
+                                            "purchase_places": {
+                                                "type": "string"
+                                            },
+                                            "stores": {
+                                                "type": "string"
+                                            },
+                                            "ingredients_text": {
+                                                "type": "string"
+                                            },
+                                            "traces": {
+                                                "type": "string"
+                                            },
+                                            "serving_size": {
+                                                "type": "string"
+                                            },
+                                            "serving_quantity": {
+                                                "type": "number"
+                                            },
+                                            "nutriscore_score": {
+                                                "type": "integer"
+                                            },
+                                            "nutriscore_grade": {
+                                                "type": "string"
+                                            },
+                                            "main_category": {
+                                                "type": "string"
+                                            },
+                                            "image_url": {
+                                                "type": "string",
+                                                "format": "uri"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{code}": {
+            "get": {
+                "summary": "Obter Produto",
+                "description": "Recupera um produto pelo código.",
+                "tags": [
+                    "Products"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalhes do produto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "imported_t": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "format": "uri"
+                                        },
+                                        "creator": {
+                                            "type": "string"
+                                        },
+                                        "created_t": {
+                                            "type": "integer"
+                                        },
+                                        "last_modified_t": {
+                                            "type": "integer"
+                                        },
+                                        "product_name": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "string"
+                                        },
+                                        "brands": {
+                                            "type": "string"
+                                        },
+                                        "categories": {
+                                            "type": "string"
+                                        },
+                                        "labels": {
+                                            "type": "string"
+                                        },
+                                        "cities": {
+                                            "type": "string"
+                                        },
+                                        "purchase_places": {
+                                            "type": "string"
+                                        },
+                                        "stores": {
+                                            "type": "string"
+                                        },
+                                        "ingredients_text": {
+                                            "type": "string"
+                                        },
+                                        "traces": {
+                                            "type": "string"
+                                        },
+                                        "serving_size": {
+                                            "type": "string"
+                                        },
+                                        "serving_quantity": {
+                                            "type": "number"
+                                        },
+                                        "nutriscore_score": {
+                                            "type": "integer"
+                                        },
+                                        "nutriscore_grade": {
+                                            "type": "string"
+                                        },
+                                        "main_category": {
+                                            "type": "string"
+                                        },
+                                        "image_url": {
+                                            "type": "string",
+                                            "format": "uri"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não encontrado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Atualizar Produto",
+                "description": "Atualiza um produto pelo código.",
+                "tags": [
+                    "Products"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "imported_t": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    },
+                                    "creator": {
+                                        "type": "string"
+                                    },
+                                    "created_t": {
+                                        "type": "integer"
+                                    },
+                                    "last_modified_t": {
+                                        "type": "integer"
+                                    },
+                                    "product_name": {
+                                        "type": "string"
+                                    },
+                                    "quantity": {
+                                        "type": "string"
+                                    },
+                                    "brands": {
+                                        "type": "string"
+                                    },
+                                    "categories": {
+                                        "type": "string"
+                                    },
+                                    "labels": {
+                                        "type": "string"
+                                    },
+                                    "cities": {
+                                        "type": "string"
+                                    },
+                                    "purchase_places": {
+                                        "type": "string"
+                                    },
+                                    "stores": {
+                                        "type": "string"
+                                    },
+                                    "ingredients_text": {
+                                        "type": "string"
+                                    },
+                                    "traces": {
+                                        "type": "string"
+                                    },
+                                    "serving_size": {
+                                        "type": "string"
+                                    },
+                                    "serving_quantity": {
+                                        "type": "number"
+                                    },
+                                    "nutriscore_score": {
+                                        "type": "integer"
+                                    },
+                                    "nutriscore_grade": {
+                                        "type": "string"
+                                    },
+                                    "main_category": {
+                                        "type": "string"
+                                    },
+                                    "image_url": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Produto atualizado com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer"
+                                        },
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "imported_t": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "format": "uri"
+                                        },
+                                        "creator": {
+                                            "type": "string"
+                                        },
+                                        "created_t": {
+                                            "type": "integer"
+                                        },
+                                        "last_modified_t": {
+                                            "type": "integer"
+                                        },
+                                        "product_name": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "string"
+                                        },
+                                        "brands": {
+                                            "type": "string"
+                                        },
+                                        "categories": {
+                                            "type": "string"
+                                        },
+                                        "labels": {
+                                            "type": "string"
+                                        },
+                                        "cities": {
+                                            "type": "string"
+                                        },
+                                        "purchase_places": {
+                                            "type": "string"
+                                        },
+                                        "stores": {
+                                            "type": "string"
+                                        },
+                                        "ingredients_text": {
+                                            "type": "string"
+                                        },
+                                        "traces": {
+                                            "type": "string"
+                                        },
+                                        "serving_size": {
+                                            "type": "string"
+                                        },
+                                        "serving_quantity": {
+                                            "type": "number"
+                                        },
+                                        "nutriscore_score": {
+                                            "type": "integer"
+                                        },
+                                        "nutriscore_grade": {
+                                            "type": "string"
+                                        },
+                                        "main_category": {
+                                            "type": "string"
+                                        },
+                                        "image_url": {
+                                            "type": "string",
+                                            "format": "uri"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "description": "Produto não encontrado.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Product not found."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletar o produto",
+                "description": "Move um produto para a lixeira pelo código. O produto não é removido, mas o seu status é alterado para 'trash'.",
+                "tags": [
+                    "Products"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Produto movido para a lixeira com sucesso.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product moved to trash."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não encontrado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

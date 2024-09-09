@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { Client } from '@elastic/elasticsearch';
 
 export const connectdatabase = async () => {
     try {
@@ -15,12 +14,3 @@ export const checkDatabaseConnection = async () => {
     return status === 1 ? 'Connected' : 'Disconnected';
 }
 
-export const checkElasticsearchConnection = async () => {
-    try {
-        const client = new Client({ node: 'http://elasticsearch:9200' });
-        const health = await client.cluster.health();
-        return health.status === 'green' ? 'Connected' : 'Disconnected';
-    } catch (error) {
-        return 'Disconnected';
-    }
-}

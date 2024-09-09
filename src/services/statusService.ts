@@ -1,4 +1,4 @@
-import { checkDatabaseConnection, checkElasticsearchConnection } from "../config/database";
+import { checkDatabaseConnection } from "../config/database";
 import { getCronInfo } from "../cron";
 
 const formatUptime = (uptime: number) => {
@@ -17,7 +17,6 @@ const formatMemoryUsage = (memoryUsage: NodeJS.MemoryUsage) => {
 
 export const getApiStatusService = async () => {
     const dbStatus = await checkDatabaseConnection();
-    const elasticSearchStatus = await checkElasticsearchConnection();
     const lastCronExecution = getCronInfo();
     const uptime = formatUptime(process.uptime());
     const memoryUsage = formatMemoryUsage(process.memoryUsage());
@@ -25,7 +24,6 @@ export const getApiStatusService = async () => {
     return {
         api: 'Details API',
         dbStatus,
-        elasticSearchStatus,
         lastCronExecution,
         uptime,
         memoryUsage
