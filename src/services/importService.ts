@@ -5,6 +5,7 @@ import { createGunzip } from "zlib";
 import * as readline from "readline";
 import { ProductService } from "../services/productService";
 import * as Sentry from "@sentry/node";
+import { ImportHistoryService } from "./importHistoryService";
 
 const productService = new ProductService();
 const MAX_PRODUCTS = 100;
@@ -12,6 +13,8 @@ const INDEX_URL = "https://challenges.coode.sh/food/data/json/index.txt";
 const FILE_URL = "https://challenges.coode.sh/food/data/json/";
 const TEMP_DIR = path.join(__dirname, "../../temp");
 const SENTRY_DSN = "https://d1a847e9dd10c1ee174ec641e0f78105@o4504663060578304.ingest.us.sentry.io/4507919120465920";
+
+const importHistoryService = new ImportHistoryService();
 
 Sentry.init({
   dsn: SENTRY_DSN  
@@ -56,8 +59,8 @@ const saveProductsToDatabase = async (
       const json = JSON.parse(line);
       const filteredProduct = {
         code: json.code.replace(/\"/g, ""),
-        status: json.status,
-        imported_t: json.imported_t,
+        status: "published",
+        imported_t: Date.now().toString(),
         url: json.url,
         creator: json.creator,
         created_t: json.created_t,
@@ -110,12 +113,14 @@ const importData = async () => {
       await downloadFile(fileUrl, filePath);
       await decompressFile(filePath, unzippedFilePath);
       await saveProductsToDatabase(unzippedFilePath, MAX_PRODUCTS);
+      await importHistoryService.createImportHistory(new Date(), file, MAX_PRODUCTS, "success");
       Sentry.captureMessage("Importação de dados realizada com sucesso");
 
       fs.unlinkSync(filePath);
       fs.unlinkSync(unzippedFilePath);
     }
   } catch (error) {
+    await importHistoryService.createImportHistory(new Date(), "failure", 0, error.message);
     console.error("Erro durante a importação de dados:", error);
     Sentry.captureException(error);
   }
