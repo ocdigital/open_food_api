@@ -14,3 +14,4 @@ export const checkDatabaseConnection = async () => {
     return status === 1 ? 'Connected' : 'Disconnected';
 }
 
+

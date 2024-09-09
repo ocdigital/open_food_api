@@ -1,5 +1,5 @@
 import { ProductRepository } from "../repositories/productRepository";
-import { Product } from "../models/product";
+import { Product } from "../entities/product";
 import { Client } from "@elastic/elasticsearch";
 
 export class ProductService {

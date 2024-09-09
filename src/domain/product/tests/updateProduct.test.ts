@@ -1,7 +1,7 @@
 import request from 'supertest';
 import express from 'express';
-import { updateProduct } from '../../controllers/productController';
-import { ProductService } from '../../services/productService';
+import { updateProduct } from '../controllers/productController';
+import { ProductService } from '../services/productService';
 jest.mock('../../services/productService');
 
 const app = express();

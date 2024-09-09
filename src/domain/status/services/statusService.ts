@@ -1,5 +1,5 @@
-import { checkDatabaseConnection } from "../config/database";
-import { getCronInfo } from "../cron";
+import { checkDatabaseConnection } from "../../../config/database";
+import { getCronInfo } from "../../../../src/cron";
 
 const formatUptime = (uptime: number) => {
     const hours = Math.floor(uptime / 3600);

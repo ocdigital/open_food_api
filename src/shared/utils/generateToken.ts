@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { jwtConfig } from '../config/jwtConfig';
+import { jwtConfig } from '../../config/jwtConfig';
 
 export const generateToken = ():string => {
     const paylod = {

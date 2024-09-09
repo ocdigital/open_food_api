@@ -5,7 +5,7 @@ import { createGunzip } from "zlib";
 import * as readline from "readline";
 import { ProductService } from "../services/productService";
 import * as Sentry from "@sentry/node";
-import { ImportHistoryService } from "./importHistoryService";
+import { ImportHistoryService } from "../../importHistory/services/importHistoryService";
 
 const productService = new ProductService();
 const MAX_PRODUCTS = 100;

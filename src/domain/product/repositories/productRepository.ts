@@ -1,4 +1,4 @@
-import { ProductModel, Product } from "../models/product";
+import { ProductModel, Product } from "../entities/product";
 
 export class ProductRepository {
 

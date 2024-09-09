@@ -1,4 +1,4 @@
-import { ImportHistoryModel } from "../models/importHistory";
+import { ImportHistoryModel } from "../entities/importHistory";
 
 export class ImportHistoryService {
     async createImportHistory(importedAt: Date, fileName: string, productsTotal: number, errorMessages: string) {
