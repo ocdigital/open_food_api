@@ -14,10 +14,9 @@ export const getProducts = async (req: Request, res: Response) => {
     res.json(products);  
 }
 
-export const getProduct = async (req: Request, res: Response) => {   
+export const getProductByCode = async (req: Request, res: Response) => {   
     const { code } = req.params;
 
-    console.log(code);
     const product = await productService.getProductByCode(code);
     if (!product) {
         return res.status(404).json({ message: 'Product not found' });
