@@ -1,4 +1,4 @@
 export const jwtConfig = {
-    secretKey: '123456789',
+    secretKey: process.env.JWT_SECRET,
     expiresIn: '1d',
 };

@@ -3,7 +3,7 @@ import express from 'express';
 import { getProducts } from '../controllers/productController';
 import { ProductService } from '../services/productService';
 
-jest.mock('../../services/productService');
+jest.mock('../services/productService');
 
 const app = express();
 app.use(express.json());

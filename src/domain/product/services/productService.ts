@@ -43,7 +43,10 @@ export class ProductService {
             from: (page - 1) * pageSize,
             body: {
                 query: {
-                    match_all:{}
+                    multi_match: {
+                        query: query,
+                        fields: ['creator', 'product_name']
+                    }
                 },
                 from: (page - 1) * pageSize,
                 size: pageSize

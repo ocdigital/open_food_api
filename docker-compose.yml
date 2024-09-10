@@ -12,9 +12,13 @@ services:
     volumes:
       - .:/usr/src/app
     environment:
+      PORT: 3000
+      INDEX_URL: https://challenges.coode.sh/food/data/json/index.txt
+      FILE_URL: https://challenges.coode.sh/food/data/json/
       MONGO_URL: mongodb://mongo:27017/foodData
       ELASTICSEARCH_URL: http://elasticsearch:9200
-      SENTRY_DSN: https://9f94065bd5010b9c4b034c40d40b6177@o4504663060578304.ingest.us.sentry.io/4507919086518272
+      SENTRY_DSN: https://d1a847e9dd10c1ee174ec641e0f78105@o4504663060578304.ingest.us.sentry.io/4507919120465920
+      JWT_SECRET: 123456789
     networks:
       - app-network
 

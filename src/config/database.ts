@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export const connectdatabase = async () => {
     try {
-        const mongoURL = process.env.MONGO_URL || 'mongodb://mongo:27017/foodData';
+        const mongoURL = process.env.MONGO_URL;
         await mongoose.connect(mongoURL);
     } catch (error) {        
         process.exit(1);

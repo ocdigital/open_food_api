@@ -2,7 +2,7 @@ import request from 'supertest';
 import express from 'express';
 import { getProductByCode } from '../controllers/productController';
 import { ProductService } from '../services/productService';
-jest.mock('../../services/productService');
+jest.mock('../services/productService');
 
 const app = express();
 app.use(express.json());
