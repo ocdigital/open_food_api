@@ -11,7 +11,7 @@ const productService = new ProductService();
 const MAX_PRODUCTS = 100;
 const INDEX_URL = "https://challenges.coode.sh/food/data/json/index.txt";
 const FILE_URL = "https://challenges.coode.sh/food/data/json/";
-const TEMP_DIR = path.join(__dirname, "../../temp");
+const TEMP_DIR = path.join(__dirname, "../../../../temp");
 const SENTRY_DSN = "https://d1a847e9dd10c1ee174ec641e0f78105@o4504663060578304.ingest.us.sentry.io/4507919120465920";
 
 const importHistoryService = new ImportHistoryService();
