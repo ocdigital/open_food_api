@@ -46,18 +46,24 @@ Desenvolvimento de uma aplicação Node.js com TypeScript e Docker, integrando M
     cd open_food_api
     ```
 
-3. **Crie os containers e execute em segundo plano**
+3. **Instale as dependências**
+    ```bash
+    npm install
+
+    ```
+    
+4. **Crie os containers e execute em segundo plano**
     ```bash
     docker-compose up --build -d
 
     ```
 
-7. **Para executar os Testes unitários:**
+5. **Para executar os Testes unitários:**
     ```bash
     npm test
     ```
 
-7. **Gerar o token jwt para usar na documentação:**
+6. **Gerar o token jwt para usar na documentação:**
     ```bash
     ts-node tokenGenerator.ts
     ```
