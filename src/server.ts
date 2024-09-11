@@ -8,7 +8,7 @@ async function startServer() {
     try {
         await connectdatabase();
 
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        await new Promise(resolve => setTimeout(resolve, 15000));
         await createProductIndex();
 
         app.listen(PORT, () => {
